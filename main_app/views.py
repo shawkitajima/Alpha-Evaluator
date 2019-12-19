@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 import os
 import requests
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from .models import Company, Performance
@@ -10,20 +11,47 @@ from .models import Company, Performance
 def home(request):
  return render(request, 'home.html')
 
+@login_required
 def my_stocks(request):
   return render(request, 'my_stocks.html')
 
-
-def company_detail(request, company_id):
-  company = Company.objects.get(id=company_id)
-  news = fetchNews(company.ticker)
+@login_required
+def company_search(request):
+  ticker = request.POST
+  news = fetchNews(ticker)
+  prices = fetchPrices(ticker)
+  info = fetchInfo(ticker)
   return render(request, 'detail.html', {
     'news': news,
-    'company': company
+    'prices': prices,
+    'info': info
   })
 
+
+
+def company_detail(request, company_id):
+  pass
+  # We will probably see if we can route this reuse the company_search function
+  # Actually, we are going to move the company search login here, and redirect the company search
+
+def fetchPrices(ticker):
+    API_KEY = os.environ['ALPHA_KEY']
+    response = requests.get(f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=full&apikey={API_KEY}')
+    obj = response.json()
+    days = obj['Time Series (Daily)']
+    arr = []
+    for key, val in days.items():
+        arr.append(
+            {
+                'date': key,
+                'close': val['4. close']
+            }
+        )
+    return arr
+
 def fetchNews(ticker):
-    response = requests.get(f'https://finnhub.io/api/v1/news/{ticker}?token=')
+    API_KEY = os.environ['FINN_KEY']
+    response = requests.get(f'https://finnhub.io/api/v1/news/{ticker}?token={API_KEY}')
     arr = response.json()
     final = []
     for obj in arr:
@@ -37,6 +65,23 @@ def fetchNews(ticker):
             'source': obj['source']
         })
     return final
+
+
+def fetchInfo(ticker):
+    API_KEY = os.environ['FINN_KEY']
+    response = requests.get(f'https://finnhub.io/api/v1/stock/profile?symbol={ticker}&token={API_KEY}')
+    obj = response.json()
+    info = {
+        'address': obj['address'],
+        'city': obj['city'],
+        'description': obj['description'],
+        'exchange': obj['exchange'],
+        'name': obj['name'],
+        'weburl': obj['weburl'],
+        'state': obj['state'],
+        'phone': obj['phone']
+    }
+    return info
 
 def signup(request):
   error_message = ''
