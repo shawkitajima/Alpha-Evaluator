@@ -10,6 +10,9 @@ from .models import Company, Performance
 def home(request):
   return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
 
+def my_stocks(request):
+  return HttpResponse('Congrats on logging in')
+
 
 def company_detail(request, company_id):
   company = Company.objects.get(id=company_id)
