@@ -8,10 +8,10 @@ from .models import Company, Performance
 
 
 def home(request):
-  return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
+ return render(request, 'home.html')
 
 def my_stocks(request):
-  return HttpResponse('Congrats on logging in')
+  return render(request, 'my_stocks.html')
 
 
 def company_detail(request, company_id):
@@ -45,7 +45,7 @@ def signup(request):
     if form.is_valid():
       user = form.save()
       login(request, user)
-      return redirect('home.html')
+      return redirect('my_stocks')
     else:
       error_message = 'Invalid sign up - try again'
   form = UserCreationForm()

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cat Collector</title>
+    <title>Alpha Evaluator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
@@ -21,6 +21,12 @@
                 <ul class="right">
                   {% if user.is_authenticated %}
                       <li><a href="{% url 'logout' %}">Log Out</a></li>
+                      <form action="" method="POST">
+                        <li>
+                            <input type="text" name="ticker" placeholder="Search...">
+
+                        </li>
+                    </form>
                     {% else %}
                       <li><a href="{% url 'signup' %}">Sign Up</a></li>
                       <li><a href="{% url 'login' %}">Log In</a></li>
