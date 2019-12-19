@@ -21,7 +21,7 @@
                 <ul class="right">
                   {% if user.is_authenticated %}
                       <li><a href="{% url 'logout' %}">Log Out</a></li>
-                      <form action="" method="POST">
+                      <form action="/companies/search" method="POST">
                         <li>
                             <input type="text" name="ticker" placeholder="Search...">
 
