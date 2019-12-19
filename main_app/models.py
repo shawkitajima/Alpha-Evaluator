@@ -5,6 +5,7 @@ from datetime import date
 # Create your models here.
 
 
+
 #Company model, the one side on our relation 
 class Company(models.Model):
     name = models.CharField(max_length=100)
