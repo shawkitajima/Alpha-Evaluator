@@ -21,7 +21,9 @@
                 <ul class="right">
                   {% if user.is_authenticated %}
                       <li><a href="{% url 'logout' %}">Log Out</a></li>
-                      <form action="/companies/search" method="POST">
+                      <form action="/companies/search/" method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
                         <li>
                             <input type="text" name="ticker" placeholder="Search...">
 

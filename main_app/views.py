@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import os
 import requests
+from datetime import datetime
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -17,7 +18,7 @@ def my_stocks(request):
 
 @login_required
 def company_search(request):
-  ticker = request.POST
+  ticker = request.POST['ticker']
   news = fetchNews(ticker)
   prices = fetchPrices(ticker)
   info = fetchInfo(ticker)
