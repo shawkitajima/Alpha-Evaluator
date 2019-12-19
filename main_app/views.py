@@ -23,7 +23,7 @@ def company_detail(request, company_id):
   })
 
 def fetchNews(ticker):
-    response = requests.get(f'https://finnhub.io/api/v1/news/{ticker}?token=bnp91cnrh5re75ftjav0')
+    response = requests.get(f'https://finnhub.io/api/v1/news/{ticker}?token=')
     arr = response.json()
     final = []
     for obj in arr:
