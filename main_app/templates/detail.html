@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Performance</h1>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Closing price</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for price in prices  %}
+        <tr>
+            <td> {% price.close %} </td>
+            <td> {% price.date %} </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
