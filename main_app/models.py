@@ -18,5 +18,4 @@ class Company(models.Model):
 class Performance(models.Model):
     date = models.DateField()
     price = models.IntegerField()
-
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
