@@ -10,19 +10,6 @@ from .models import Company, Performance
 def home(request):
   return HttpResponse('<h1>Hello /ᐠ｡‸｡ᐟ\ﾉ</h1>')
 
-def signup(request):
-  error_message = ''
-  if request.method == 'POST':
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-      user = form.save()
-      login(request, user)
-      return redirect('index')
-    else:
-      error_message = 'Invalid sign up - try again'
-  form = UserCreationForm()
-  context = {'form': form, 'error_message': error_message}
-  return render(request, 'registration/signup.html', context)
 
 def company_detail(request, company_id):
   company = Company.objects.get(id=company_id)
@@ -31,8 +18,6 @@ def company_detail(request, company_id):
     'news': news,
     'company': company
   })
-
-
 
 def fetchNews(ticker):
     response = requests.get(f'https://finnhub.io/api/v1/news/{ticker}?token=bnp91cnrh5re75ftjav0')
@@ -49,3 +34,17 @@ def fetchNews(ticker):
             'source': obj['source']
         })
     return final
+
+def signup(request):
+  error_message = ''
+  if request.method == 'POST':
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      login(request, user)
+      return redirect('index')
+    else:
+      error_message = 'Invalid sign up - try again'
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
