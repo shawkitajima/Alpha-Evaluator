@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 import os
 import requests
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
 from .models import Company, Performance
@@ -10,6 +11,7 @@ from .models import Company, Performance
 def home(request):
  return render(request, 'home.html')
 
+@login_required
 def my_stocks(request):
   return render(request, 'my_stocks.html')
 
