@@ -19,6 +19,10 @@ def my_stocks(request):
 @login_required
 def company_search(request):
   ticker = request.POST['ticker']
+  return redirect('detail', ticker=ticker)
+
+
+def company_detail(request, ticker):
   news = fetchNews(ticker)
   prices = fetchPrices(ticker)
   info = fetchInfo(ticker)
@@ -27,13 +31,6 @@ def company_search(request):
     'prices': prices,
     'info': info
   })
-
-
-
-def company_detail(request, company_id):
-  pass
-  # We will probably see if we can route this reuse the company_search function
-  # Actually, we are going to move the company search login here, and redirect the company search
 
 def fetchPrices(ticker):
     API_KEY = os.environ['ALPHA_KEY']
