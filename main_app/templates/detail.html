@@ -3,7 +3,11 @@
 {% block content %}
 
 
-<form action="">
+<form action="/companies/add/" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden"  name="ticker" value={{ticker}}>
+    <input type="hidden"  name="name" value={{info.name}}>
     <button type="submit">Add to Watchlist</button>
 </form>
 <div class="detailContainer">
