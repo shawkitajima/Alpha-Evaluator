@@ -26,3 +26,22 @@ footer.page-footer {
 input {
   color: whitesmoke;
 }
+
+.buttonBorder {
+  border-style: none;
+  padding-left: 4rem;
+}
+
+.playButton {
+  color: black;
+}
+
+.inputInfo {
+  background-color: whitesmoke !important;
+  width: 5rem !important;
+  height: 1.5rem !important;
+  color: black !important;
+}
+
+
+
