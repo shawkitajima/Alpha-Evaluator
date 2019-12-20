@@ -25,6 +25,8 @@
         <tr class="buttonBorder">
         <form action="/user/performance/add/" method="POST">
             {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="ticker" id="">
             <th><input class="inputInfo" name="buy" type="text" placeholder="Buy price..."></th>
             <th> <input class="inputInfo" name="sell"  type="text" placeholder="Sell price..."></th>
             <th> <input class="playButton" type="submit" value="add"></th>
