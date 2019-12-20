@@ -2,7 +2,7 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-color: black;
+  background-color: rgb(1, 32, 15);
   color: whitesmoke;
 }
 
@@ -16,9 +16,13 @@ footer.page-footer {
 }
 
 .nav-wrapper {
-  background-color: teal;
+  background-color: rgb(38, 39, 39);
 }
 
 .page-footer {
-  background-color: teal;
+  background-color:  rgb(38, 39, 39);;
+}
+
+input {
+  color: whitesmoke;
 }
