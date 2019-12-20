@@ -19,32 +19,15 @@
             </tr>
         </thead>
         <tbody>
-            {% for i in info %}
             <tr>
-                <td> {{ i.address }} </td>
-                <td> {{ i.city }} </td>
-                <td> {{ i.description }} </td>
-                <td> {{ i.exchange }} </td>
-                <td> {{ i.weburl }} </td>
-                <td> {{ i.state }} </td>
-                <td> {{ i.phone }} </td>
+                <td> {{ info.address }} </td>
+                <td> {{ info.city }} </td>
+                <td> {{ info.description }} </td>
+                <td> {{ info.exchange }} </td>
+                <td> {{ info.weburl }} </td>
+                <td> {{ info.state }} </td>
+                <td> {{ info.phone }} </td>
             </tr>
-        </tbody>
-    </table>
-    <table>
-        <thead>
-            <tr>
-                <th>Closing price</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for price in prices  %}
-            <tr>
-                <td> {{ price.close }} </td>
-                <td> {{ price.date }} </td>
-            </tr>
-            {% endfor %}
         </tbody>
     </table>
 </div>
@@ -53,10 +36,11 @@
     {% for n in news %}
    <div>
         <img src="{{ n.image }}" alt="">
-        <h4> {{ n.headline }} </h4>
+        <h4><a href="{{n.url}}"> {{ n.headline }}</a> </h4>
         <p>{{ n.date }}</p>
         <p>{{ n.source }}</p>
    </div> 
+   {% endfor %}
 
 
 
