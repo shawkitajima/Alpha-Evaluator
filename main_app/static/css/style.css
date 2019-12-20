@@ -43,5 +43,29 @@ input {
   color: black !important;
 }
 
+#detail {
+  border-spacing: 2rem .7rem;
+}
+
+img {
+  width: 25rem;
+  
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: rgb(36, 127, 230);
+}
+
+h5 {
+  margin-top: 3rem;
+}
+
+.news {
+  margin-top: 3rem;
+}
 
 
