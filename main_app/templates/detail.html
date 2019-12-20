@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<h1>Performance</h1>
+
 
 <div class="detailContainer">
     <h1>{{ info.name }}</h1>
@@ -31,6 +31,7 @@
         </tbody>
     </table>
 </div>
+    {% if news  %}
 <h1>Related News:</h1>
 <div class="newsContainer">
     {% for n in news %}
@@ -41,6 +42,7 @@
         <p>{{ n.source }}</p>
    </div> 
    {% endfor %}
+   {% endif %}
 
 
 
