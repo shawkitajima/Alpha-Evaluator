@@ -25,6 +25,7 @@ def company_search(request):
 def company_detail(request, ticker):
   news = fetchNews(ticker)
   prices = fetchPrices(ticker)
+  prices.reverse()
   info = fetchInfo(ticker)
   return render(request, 'detail.html', {
     'news': news,
@@ -39,12 +40,14 @@ def fetchPrices(ticker):
     days = obj['Time Series (Daily)']
     arr = []
     for key, val in days.items():
-        arr.append(
-            {
-                'date': key,
-                'close': val['4. close']
-            }
-        )
+      date = str(datetime.strptime(key, '%Y-%M-%d'))
+      print(date)
+      arr.append(
+          {
+              'date': date,
+              'close': val['4. close']
+          }
+      )
     return arr
 
 def fetchNews(ticker):
