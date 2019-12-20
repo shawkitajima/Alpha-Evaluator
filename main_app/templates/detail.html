@@ -4,22 +4,60 @@
 
 <h1>Performance</h1>
 
+<div class="detailContainer">
+    <h1>{{ info.name }}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Address</th>
+                <th>City</th>
+                <th>Description</th>
+                <th>Exchange</th>
+                <th>Weburl</th>
+                <th>State</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in info %}
+            <tr>
+                <td> {{ i.address }} </td>
+                <td> {{ i.city }} </td>
+                <td> {{ i.description }} </td>
+                <td> {{ i.exchange }} </td>
+                <td> {{ i.weburl }} </td>
+                <td> {{ i.state }} </td>
+                <td> {{ i.phone }} </td>
+            </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+            <tr>
+                <th>Closing price</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for price in prices  %}
+            <tr>
+                <td> {{ price.close }} </td>
+                <td> {{ price.date }} </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<h1>Related News:</h1>
+<div class="newsContainer">
+    {% for n in news %}
+   <div>
+        <img src="{{ n.image }}" alt="">
+        <h4> {{ n.headline }} </h4>
+        <p>{{ n.date }}</p>
+        <p>{{ n.source }}</p>
+   </div> 
 
-<table>
-    <thead>
-        <tr>
-            <th>Closing price</th>
-            <th>Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for price in prices  %}
-        <tr>
-            <td> {{ price.close }} </td>
-            <td> {{ price.date }} </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
 
 {% endblock %}
