@@ -60,7 +60,8 @@ def fetchNews(ticker):
             'date': date,
             'headline': obj['headline'],
             'image': obj['image'],
-            'source': obj['source']
+            'source': obj['source'],
+            'url': obj['url'],
         })
     return final
 
