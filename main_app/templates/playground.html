@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>{{ company.name }}</h1>
+<h3>Your past positions</h3>
+<table>
+    <thead>
+        <tr>
+         <th>Buy</th>
+         <th>Sell</th>
+         <th>Profit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+    </tbody>
+<table>
+    <thead>
+        <tr class="buttonBorder">
+        <form action="/user/performance/add/" method="POST">
+            {% csrf_token %}
+            <th><input class="inputInfo" name="buy" type="text" placeholder="Buy price..."></th>
+            <th> <input class="inputInfo" name="sell"  type="text" placeholder="Sell price..."></th>
+            <th> <input class="playButton" type="submit" value="add"></th>
+
+        </form>
+         
+        </tr>
+    </thead>
+</table>
+
+
+{% endblock %}

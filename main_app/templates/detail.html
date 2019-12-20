@@ -2,11 +2,13 @@
 
 {% block content %}
 
-<h1>Performance</h1>
 
+<form action="">
+    <button type="submit">Add to Watchlist</button>
+</form>
 <div class="detailContainer">
-    <h1>{{ info.name }}</h1>
-    <table>
+    <h3>{{ info.name }}</h3>
+    <table id="detail">
         <thead>
             <tr>
                 <th>Address</th>
@@ -31,6 +33,7 @@
         </tbody>
     </table>
 </div>
+
 
 <canvas id="funchart" width="175" height="150"></canvas>                      
 <script type="text/javascript">
@@ -80,17 +83,21 @@
 </script>
 
 
+{% if news  %}
 
 <h1>Related News:</h1>
 <div class="newsContainer">
     {% for n in news %}
-   <div>
+   <div class="news"> 
+       <hr>
         <img src="{{ n.image }}" alt="">
-        <h4><a href="{{n.url}}"> {{ n.headline }}</a> </h4>
-        <p>{{ n.date }}</p>
-        <p>{{ n.source }}</p>
+        <h5><a href="{{n.url}}"> {{ n.headline }}</a> </h5>
+        <p>Date published: {{ n.date }}</p>
+        <p>Source: {{ n.source }}</p>
    </div> 
+</div>
    {% endfor %}
+   {% endif %}
 
 
 
