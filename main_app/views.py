@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse
-from .models import Company
+from .models import Company, Performance
 
 
 def home(request):
@@ -25,12 +25,34 @@ def company_search(request):
 def company_detail(request, ticker):
   news = fetchNews(ticker)
   prices = fetchPrices(ticker)
+  prices.reverse()
   info = fetchInfo(ticker)
   return render(request, 'detail.html', {
     'news': news,
     'prices': prices,
-    'info': info
+    'info': info,
+    'ticker': ticker
   })
+
+def company_add(request):
+  company = Company(
+    ticker=request.POST['ticker'],
+    name=request.POST['name'],
+    user=request.user
+  )
+  company.save()
+  return redirect('detail', ticker=request.POST['ticker'])
+
+def add_performance(request):
+  performance = Performance(
+    ticker = request.POST['ticker'],
+    buy = request.POST['buy'],
+    sell = request.POST['sell'],
+    user =  request.user.id
+  )
+  performance.save()
+  return redirect('playground', ticker=request.POST['ticker'])
+
 
 def fetchPrices(ticker):
     API_KEY = os.environ['ALPHA_KEY']
@@ -39,12 +61,13 @@ def fetchPrices(ticker):
     days = obj['Time Series (Daily)']
     arr = []
     for key, val in days.items():
-        arr.append(
-            {
-                'date': key,
-                'close': val['4. close']
-            }
-        )
+      date = str(datetime.strptime(key, '%Y-%M-%d'))
+      arr.append(
+          {
+              'date': date,
+              'close': val['4. close']
+          }
+      )
     return arr
 
 def fetchNews(ticker):

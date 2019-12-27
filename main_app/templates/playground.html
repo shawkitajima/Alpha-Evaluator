@@ -26,9 +26,13 @@
         <form action="/user/performance/add/" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
+<<<<<<< HEAD
             <input type="hidden" name="ticker" id="">
+=======
+>>>>>>> master
             <th><input class="inputInfo" name="buy" type="text" placeholder="Buy price..."></th>
             <th> <input class="inputInfo" name="sell"  type="text" placeholder="Sell price..."></th>
+            <input type="hidden"  name="ticker" value={{company.ticker}}>
             <th> <input class="playButton" type="submit" value="add"></th>
 
         </form>
