@@ -36,6 +36,11 @@
         </tr>
     </thead>
 </table>
+{% if user %}
+<h3>My Watchlist</h3>
+
+<p>{{ info.name }}</p>
+{% endif %}
 
 
 {% endblock %}

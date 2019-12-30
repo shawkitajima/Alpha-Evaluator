@@ -2,6 +2,34 @@
 
 {% block content %}
 
-<h1>Hello world</h1>
+<h1>My Watch List</h1>
+
+{% if watchList %}
+
+<div class="listContainer">
+    <table id="list">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for company in watchList %}
+            <tr>
+                <td> {{ company.ticker }} </td>
+                <td> {{ company.name }} </td>
+                <td> {{ company.price }} </td>
+                <td><a href=""><button>View</button></a></td>
+                <td><a href="{% url 'company_delete' company.id %}"><button>Delete</button></a></td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}
