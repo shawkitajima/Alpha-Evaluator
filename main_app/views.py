@@ -10,7 +10,7 @@ from .models import Company, Performance
 
 
 def home(request):
- return render(request, 'playground.html')
+ return render(request, 'home.html')
 
 @login_required
 def my_stocks(request):

@@ -26,10 +26,6 @@
         <form action="/user/performance/add/" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-<<<<<<< HEAD
-            <input type="hidden" name="ticker" id="">
-=======
->>>>>>> master
             <th><input class="inputInfo" name="buy" type="text" placeholder="Buy price..."></th>
             <th> <input class="inputInfo" name="sell"  type="text" placeholder="Sell price..."></th>
             <input type="hidden"  name="ticker" value={{company.ticker}}>
@@ -40,7 +36,11 @@
         </tr>
     </thead>
 </table>
+{% if user %}
 <h3>My Watchlist</h3>
-<p>{{ Company.name }}</p>
+
+<p>{{ info.name }}</p>
+{% endif %}
+
 
 {% endblock %}
