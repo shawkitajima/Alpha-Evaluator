@@ -12,9 +12,29 @@ from .models import Company, Performance
 def home(request):
  return render(request, 'home.html')
 
+
+# ticker, name, price
 @login_required
 def my_stocks(request):
-  return render(request, 'my_stocks.html')
+  companies = Company.objects.filter(user=request.user)
+  tickers = []
+  for company in companies:
+    API_KEY = os.environ['FINN_KEY']
+    response = requests.get(f'https://finnhub.io/api/v1/quote?symbol={company.ticker}&token={API_KEY}')
+    obj = response.json()
+    tickers.append(
+      {
+        'id': company.id,
+        'name': company.name,
+        'ticker': company.ticker,
+        'price': obj['c'],
+      }
+    )
+  return render(request, 'my_stocks.html', {'watchList': tickers})
+
+@login_required
+def company_delete(request, company_id):
+  return redirect('my_stocks')
 
 @login_required
 def company_search(request):
@@ -56,7 +76,7 @@ def add_performance(request):
 
 def fetchPrices(ticker):
     API_KEY = os.environ['ALPHA_KEY']
-    response = requests.get(f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=full&apikey={API_KEY}')
+    response = requests.get(f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={ticker}&outputsize=full&apikey={API_KEY}')
     obj = response.json()
     days = obj['Time Series (Daily)']
     arr = []
