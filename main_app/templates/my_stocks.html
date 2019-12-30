@@ -23,7 +23,7 @@
                 <td> {{ company.ticker }} </td>
                 <td> {{ company.name }} </td>
                 <td> {{ company.price }} </td>
-                <td><a href=""><button>View</button></a></td>
+                <td><a href="{% url 'detail' company.ticker %}"><button>View</button></a></td>
                 <td><a href="{% url 'company_delete' company.id %}"><button>Delete</button></a></td>
             </tr>
             {% endfor %}
