@@ -12,8 +12,6 @@ from .models import Company, Performance
 def home(request):
  return render(request, 'home.html')
 
-
-# ticker, name, price
 @login_required
 def my_stocks(request):
   companies = Company.objects.filter(user=request.user)
@@ -34,6 +32,7 @@ def my_stocks(request):
 
 @login_required
 def company_delete(request, company_id):
+  Company.objects.filter(id=company_id).delete()
   return redirect('my_stocks')
 
 @login_required
