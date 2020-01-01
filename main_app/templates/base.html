@@ -12,30 +12,25 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <header class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
-                <ul>
-                    <li><a href="/mystocks/" class="left brand-logo">&nbsp;&nbsp;Alpha Evaluator</a></li>
-                </ul>
-                <ul class="right">
-                  {% if user.is_authenticated %}
-                      <li><a href="{% url 'logout' %}">Log Out</a></li>
-                      <form action="/companies/search/" method="POST">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <li>
-                            <input type="text" name="ticker" placeholder="Search...">
-                        </li>
-                    </form>
-                    {% else %}
-                      <li><a href="{% url 'signup' %}">Sign Up</a></li>
-                      <li><a href="{% url 'login' %}">Log In</a></li>
-                    {% endif %}
-                  </ul>
-            </div>
+    <div class="navbar-fixed">
+        <nav class="black">
+            <div class="container">
+                <div class="nav-warapper">
+                    <a href="" class="brand-logo center">Alpha Evaluator</a>
+                    <ul class="right">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'logout' %}" class="right">Logout</a>
+                        {% else %}
+                        <a href="{% url 'login' %}" class="right">Login</a>
+                        <a href="{% url 'signup' %}" class="right">Sign up</a>
+                        {% endif %}
+                    </ul>
+                </div>
+
+            </div> 
+
         </nav>
-    </header>
+    </div>
     <main class="container">
         {% block content %}
         {% endblock %}
