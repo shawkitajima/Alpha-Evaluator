@@ -17,15 +17,16 @@ def my_stocks(request):
   companies = Company.objects.filter(user=request.user)
   tickers = []
   for company in companies:
-    API_KEY = os.environ['FINN_KEY']
-    response = requests.get(f'https://finnhub.io/api/v1/quote?symbol={company.ticker}&token={API_KEY}')
+    API_KEY = os.environ['ALPHA_KEY']
+    response = requests.get(f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={company.ticker}&apikey={API_KEY}')
     obj = response.json()
     tickers.append(
       {
         'id': company.id,
         'name': company.name,
         'ticker': company.ticker,
-        'price': obj['c'],
+        'price': obj['Global Quote']['05. price'],
+        'per_change': obj['Global Quote']['10. change percent'],
       }
     )
   return render(request, 'my_stocks.html', {'watchList': tickers})
@@ -53,6 +54,38 @@ def company_detail(request, ticker):
     'ticker': ticker
   })
 
+# Need performance calculate
+def performance_calculate(request, company_id):
+  company = Company.objects.get(pk=company_id)
+  API_KEY = os.environ['ALPHA_KEY']
+  response = requests.get(f'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={company.ticker}&outputsize=full&apikey={API_KEY}')
+  obj = response.json()
+  days = obj['Time Series (Daily)']
+  performances = Performance.objects.filter(company=company_id)
+  profits = []
+  for performance in performances:
+    buy = str(datetime.strftime(performance.buy, '%Y-%m-%d'))
+    sell = str(datetime.strftime(performance.sell, '%Y-%m-%d'))
+    profits.append({
+      'buy': buy,
+      'sell': sell,
+      'profit': str(round(float(days[sell]['5. adjusted close']) - float(days[buy]['5. adjusted close']),2))
+    })
+  print (profits)
+  return render(request, 'playground.html', {'profits': profits, 'company': company})
+
+# Need performance add. this redirects to performance calculate
+def add_performance(request):
+  company = Company.objects.get(id=request.POST['company'])
+  performance = Performance(
+    buy = request.POST['buy'],
+    sell = request.POST['sell'],
+    company =  company
+  )
+  performance.save()
+  return redirect('company_playground', company_id=request.POST['company'])
+
+
 def company_add(request):
   company = Company(
     ticker=request.POST['ticker'],
@@ -62,15 +95,6 @@ def company_add(request):
   company.save()
   return redirect('detail', ticker=request.POST['ticker'])
 
-def add_performance(request):
-  performance = Performance(
-    ticker = request.POST['ticker'],
-    buy = request.POST['buy'],
-    sell = request.POST['sell'],
-    user =  request.user.id
-  )
-  performance.save()
-  return redirect('playground', ticker=request.POST['ticker'])
 
 
 def fetchPrices(ticker):
@@ -84,7 +108,7 @@ def fetchPrices(ticker):
       arr.append(
           {
               'date': date,
-              'close': val['4. close']
+              'close': val['5. adjusted close']
           }
       )
     return arr
