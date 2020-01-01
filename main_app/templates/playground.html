@@ -23,12 +23,12 @@
 <table>
     <thead>
         <tr class="buttonBorder">
-        <form action="/user/performance/add/" method="POST">
+        <form action="{% url 'performance_add'%}" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
             <th><input class="inputInfo" name="buy" type="text" placeholder="Buy price..."></th>
             <th> <input class="inputInfo" name="sell"  type="text" placeholder="Sell price..."></th>
-            <input type="hidden"  name="ticker" value={{company.ticker}}>
+            <input type="hidden"  name="company" value={{company}}>
             <th> <input class="playButton" type="submit" value="add"></th>
 
         </form>
@@ -39,7 +39,7 @@
 {% if user %}
 <h3>My Watchlist</h3>
 
-<p>{{ info.name }}</p>
+<p>{{ company.name }}</p>
 {% endif %}
 
 
