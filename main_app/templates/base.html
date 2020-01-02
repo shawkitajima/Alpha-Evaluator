@@ -16,15 +16,29 @@
         <nav class="black">
             <div class="container">
                 <div class="nav-warapper">
-                    <a href="" class="brand-logo center">Alpha Evaluator</a>
+                    <a href="{% url 'home' %}" class="brand-logo center">Alpha Evaluator</a>
                     <ul class="right">
                         {% if user.is_authenticated %}
+                        <a href="{% url 'my_stocks' %}" class="right">My Watch List</a>
                         <a href="{% url 'logout' %}" class="right">Logout</a>
                         {% else %}
                         <a href="{% url 'login' %}" class="right">Login</a>
                         <a href="{% url 'signup' %}" class="right">Sign up</a>
                         {% endif %}
                     </ul>
+                    <ul class="left">
+                        {% if user.is_authenticated %}
+                        <li>
+                            <form action="/companies/search/" method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input type="text" name="ticker" placeholder="Search...">
+                            </form>
+                        </li>
+                        {% else %}
+                        {% endif %}
+                    </ul>
+
                 </div>
 
             </div> 
