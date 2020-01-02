@@ -17,16 +17,16 @@ def my_stocks(request):
   companies = Company.objects.filter(user=request.user)
   tickers = []
   for company in companies:
-    API_KEY = os.environ['ALPHA_KEY']
-    response = requests.get(f'https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol={company.ticker}&apikey={API_KEY}')
+    API_KEY = os.environ['FINN_KEY']
+    response = requests.get(f'https://finnhub.io/api/v1/quote?symbol={company.ticker}&token={API_KEY}')
     obj = response.json()
     tickers.append(
       {
         'id': company.id,
         'name': company.name,
         'ticker': company.ticker,
-        'price': obj['Global Quote']['05. price'],
-        'per_change': obj['Global Quote']['10. change percent'],
+        'price': obj['c'],
+        'per_change': (obj['c'] - obj['pc'])/obj['pc'],
       }
     )
   return render(request, 'my_stocks.html', {'watchList': tickers})
