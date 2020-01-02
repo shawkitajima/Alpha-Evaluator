@@ -2,23 +2,31 @@
 
 {% block content %}
 
-
+<datalist id="dates">
+    {% for date in prices  %}
+    <option>{{ date.date }}</option>
+    {% endfor %}
+</datalist>
 <h1>{{ company.name }}</h1>
 <h3>Your past positions</h3>
 <table>
     <thead>
         <tr>
-         <th>Buy</th>
-         <th>Sell</th>
+         <th>Buy Date</th>
+         <th>Sell Date</th>
          <th>Profit</th>
         </tr>
     </thead>
+    {% if profits %}
     <tbody>
+        {% for p in profits %}
         <tr>
-            <td>1</td>
-            <td>1</td>
-            <td>1</td>
+            <td>{{ p.buy }}</td>
+            <td>{{ p.sell }}</td>
+            <td>{{ p.profit }}</td>
         </tr>
+        {% endfor %}
+        {% endif %}
     </tbody>
 <table>
     <thead>
@@ -26,9 +34,9 @@
         <form action="{% url 'performance_add'%}" method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <th><input class="inputInfo" name="buy" type="text" placeholder="Buy price..."></th>
-            <th> <input class="inputInfo" name="sell"  type="text" placeholder="Sell price..."></th>
-            <input type="hidden"  name="company" value={{company}}>
+            <th><input autocomplete="on" list="dates" class="inputInfo" name="buy" type="text" placeholder="Date..."></th>
+            <th> <input autocomplete="on" list="dates" class="inputInfo" name="sell"  type="text" placeholder="Date..."></th>
+            <input type="hidden"  name="company" value={{company.id}}>
             <th> <input class="playButton" type="submit" value="add"></th>
 
         </form>
