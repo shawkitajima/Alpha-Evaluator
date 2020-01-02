@@ -19,8 +19,8 @@
                     <a href="{% url 'home' %}" class="brand-logo center">Alpha Evaluator</a>
                     <ul class="right">
                         {% if user.is_authenticated %}
-                        <a href="{% url 'my_stocks' %}" class="right">My Watch List</a>
                         <a href="{% url 'logout' %}" class="right">Logout</a>
+                        <a href="{% url 'my_stocks' %}" class="right">My Watch List</a>
                         {% else %}
                         <a href="{% url 'login' %}" class="right">Login</a>
                         <a href="{% url 'signup' %}" class="right">Sign up</a>
@@ -32,7 +32,7 @@
                             <form action="/companies/search/" method="POST">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <input type="text" name="ticker" placeholder="Search...">
+                                <input class="searchBar" type="text" name="ticker" placeholder="Search...">
                             </form>
                         </li>
                         {% else %}
