@@ -2,6 +2,9 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  font-family: 'Overpass', sans-serif;
+
+  ;
 
 }
 
@@ -14,6 +17,11 @@ main {
  
 
 }
+
+.brand-logo {
+  font-family: 'Kanit', sans-serif;
+}
+
 
 footer.page-footer {
   padding-top: 0;

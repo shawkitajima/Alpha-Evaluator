@@ -111,10 +111,9 @@ def fetchPrices(ticker):
     days = obj['Time Series (Daily)']
     arr = []
     for key, val in days.items():
-      date = str(datetime.strptime(key, '%Y-%M-%d'))
       arr.append(
           {
-              'date': date,
+              'date': key,
               'close': val['5. adjusted close']
           }
       )
