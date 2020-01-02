@@ -64,10 +64,9 @@ def performance_calculate(request, company_id):
   performances = Performance.objects.filter(company=company_id)
   prices = []
   for key, val in days.items():
-    date = str(datetime.strptime(key, '%Y-%M-%d'))
     prices.append(
         {
-            'date': date,
+            'date': key,
             'close': val['5. adjusted close']
         }
     )

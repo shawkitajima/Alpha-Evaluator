@@ -8,7 +8,7 @@
     {{ form.as_p }}
     <input type="hidden"  name="ticker" value={{ticker}}>
     <input type="hidden"  name="name" value={{info.name}}>
-    <button type="submit">Add to Watchlist</button>
+    <button id="addButton" type="submit">Add to Watchlist</button>
 </form>
 <div class="detailContainer">
     <h3>{{ info.name }}</h3>
@@ -30,7 +30,7 @@
                 <td> {{ info.city }} </td>
                 <td> {{ info.description }} </td>
                 <td> {{ info.exchange }} </td>
-                <td> {{ info.weburl }} </td>
+                <td> <a href="{{ info.weburl }}">{{ info.weburl }}</a></td>
                 <td> {{ info.state }} </td>
                 <td> {{ info.phone }} </td>
             </tr>
@@ -95,13 +95,18 @@
    <div class="news"> 
        <hr>
         <img src="{{ n.image }}" alt="">
-        <h5><a href="{{n.url}}"> {{ n.headline }}</a> </h5>
+        <h5><a class="linkTag" href="{{n.url}}"> {{ n.headline }}</a> </h5>
         <p>Date published: {{ n.date }}</p>
         <p>Source: {{ n.source }}</p>
    </div> 
 </div>
    {% endfor %}
    {% endif %}
+<script>
+  let addBut = document.getElementById('addButton').addEventListener('click', function() {
+    addBut.style.display = 'none'
+  })
+</script>
 
 
 
