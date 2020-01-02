@@ -62,6 +62,15 @@ def performance_calculate(request, company_id):
   obj = response.json()
   days = obj['Time Series (Daily)']
   performances = Performance.objects.filter(company=company_id)
+  prices = []
+  for key, val in days.items():
+    date = str(datetime.strptime(key, '%Y-%M-%d'))
+    prices.append(
+        {
+            'date': date,
+            'close': val['5. adjusted close']
+        }
+    )
   profits = []
   for performance in performances:
     buy = str(datetime.strftime(performance.buy, '%Y-%m-%d'))
@@ -71,8 +80,7 @@ def performance_calculate(request, company_id):
       'sell': sell,
       'profit': str(round(float(days[sell]['5. adjusted close']) - float(days[buy]['5. adjusted close']),2))
     })
-  print (profits)
-  return render(request, 'playground.html', {'profits': profits, 'company': company})
+  return render(request, 'playground.html', {'profits': profits, 'company': company, 'prices': prices})
 
 # Need performance add. this redirects to performance calculate
 def add_performance(request):
