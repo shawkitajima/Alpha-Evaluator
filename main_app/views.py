@@ -43,6 +43,11 @@ def company_search(request):
 
 
 def company_detail(request, ticker):
+  try:
+    company = Company.objects.get(user=request.user, ticker=ticker)
+  except:
+    company = False
+  print (company)
   news = fetchNews(ticker)
   prices = fetchPrices(ticker)
   prices.reverse()
@@ -51,7 +56,8 @@ def company_detail(request, ticker):
     'news': news,
     'prices': prices,
     'info': info,
-    'ticker': ticker
+    'ticker': ticker,
+    'company': company,
   })
 
 # Need performance calculate

@@ -2,7 +2,7 @@
 
 {% block content %}
 
-
+{% if company == False %}
 <form action="/companies/add/" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
@@ -10,6 +10,7 @@
     <input type="hidden"  name="name" value={{info.name}}>
     <button id="addButton" type="submit">Add to Watchlist</button>
 </form>
+{% endif %}
 <div class="detailContainer">
     <h3>{{ info.name }}</h3>
     <table id="detail">
@@ -95,7 +96,7 @@
    <div class="news"> 
        <hr>
         <img src="{{ n.image }}" alt="">
-        <h5><a class="linkTag" href="{{n.url}}"> {{ n.headline }}</a> </h5>
+        <h5><a class="linkTag" href="{{n.url}}" target="_blank"> {{ n.headline }}</a> </h5>
         <p>Date published: {{ n.date }}</p>
         <p>Source: {{ n.source }}</p>
    </div> 
