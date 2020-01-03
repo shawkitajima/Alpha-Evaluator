@@ -125,6 +125,12 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/mystocks/'
 LOGOUT_REDIRECT_URL = '/'
 
+<<<<<<< HEAD
 import django_heroku
 django_heroku.settings(locals())
 
+=======
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
+>>>>>>> 5220bf4e685c53934d4a05650bf9b6f30d56b8dc
