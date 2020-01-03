@@ -48,19 +48,21 @@ def company_detail(request, ticker):
   except:
     company = False
   print (company)
-  news = fetchNews(ticker)
-  prices = fetchPrices(ticker)
-  prices.reverse()
-  info = fetchInfo(ticker)
-  return render(request, 'detail.html', {
-    'news': news,
-    'prices': prices,
-    'info': info,
-    'ticker': ticker,
-    'company': company,
-  })
+  try:
+    news = fetchNews(ticker)
+    prices = fetchPrices(ticker)
+    prices.reverse()
+    info = fetchInfo(ticker)
+    return render(request, 'detail.html', {
+      'news': news,
+      'prices': prices,
+      'info': info,
+      'ticker': ticker,
+      'company': company,
+    })
+  except:
+    return render(request, 'error.html')
 
-# Need performance calculate
 def performance_calculate(request, company_id):
   company = Company.objects.get(pk=company_id)
   API_KEY = os.environ['ALPHA_KEY']
@@ -87,7 +89,6 @@ def performance_calculate(request, company_id):
     })
   return render(request, 'playground.html', {'profits': profits, 'company': company, 'prices': prices})
 
-# Need performance add. this redirects to performance calculate
 def add_performance(request):
   company = Company.objects.get(id=request.POST['company'])
   performance = Performance(
