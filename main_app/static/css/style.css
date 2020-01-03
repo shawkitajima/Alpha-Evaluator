@@ -14,9 +14,8 @@ main {
 
 .searchBar {
   color: white;
- 
+ }
 
-}
 
 .brand-logo {
   font-family: 'Kanit', sans-serif;
@@ -47,12 +46,12 @@ footer.page-footer {
   color: black;
 }
 
-.inputInfo {
+/* .inputInfo {
   background-color: whitesmoke !important;
-  width: 5rem !important;
+  width: 20px !important;
   height: 1.5rem !important;
   color: black !important;
-}
+} */
 
 #detail {
   border-spacing: 2rem .7rem;
@@ -60,7 +59,6 @@ footer.page-footer {
 
 img {
   width: 25rem;
-  
 }
 
 .linkTag {
